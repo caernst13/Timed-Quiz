@@ -7,3 +7,28 @@ header{
     display: flex;
     padding: 15px;
 }
+.home{
+    display: flex;
+    flex-direction: column;
+}
+h1{
+    font-size: 42px;
+    font-weight: bold;
+    text-align: center;
+}
+h4{
+    font-size: 24px;
+    text-align: center;
+    margin-left: 18%;
+    margin-right: 18%;
+}
+.start-button{
+    background-color: blueviolet;
+    color: white;
+    border-radius: 8px;
+    font-size: 24px;
+    text-align: center;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
