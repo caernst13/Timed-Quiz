@@ -2,7 +2,9 @@ header{
     display: flex;
     justify-content: space-between;
 }
-
+button{
+    cursor: pointer;
+}
 .timer{
     display: flex;
     padding: 15px;
@@ -22,7 +24,7 @@ h4{
     margin-left: 18%;
     margin-right: 18%;
 }
-.start-button{
+#start-button{
     background-color: blueviolet;
     color: white;
     border-radius: 8px;
