@@ -1,12 +1,14 @@
 var startButton = document.getElementById("start-button");
 var timerEl = document.querySelector(".timer-count");
-
+var intro = document.querySelector(".home")
 
 
 startButton.addEventListener("click", startQuiz);
 
 function startQuiz() {
-    startTimer()
+    startTimer();
+    intro.remove();
+    generateQuestion();
 }
 
 
@@ -21,4 +23,8 @@ function startTimer() {
         clearInterval(timer);
       }
     }, 1000);
+  }
+
+  function generateQuestion() {
+    
   }
