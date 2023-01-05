@@ -2,6 +2,10 @@ var startButton = document.getElementById("start-button");
 var timerEl = document.querySelector(".timer-count");
 var intro = document.querySelector(".home");
 var flagEl = document.querySelector(".flag");
+var scoreEl = document.getElementById("score")
+var nameEl = document.getElementById("name")
+
+scoreEl.style.visibility = 'hidden';
 
 
 const question = document.createElement("div");
@@ -28,6 +32,7 @@ const answers4 = ['Null', '9', '0, 15, 30, 40, game', '4', 'duce'];
 var i = 0;
 var correct = 0;
 var incorrect = 0;
+var timerCount = 60;
 
 startButton.addEventListener("click", startQuiz);
 
@@ -37,15 +42,22 @@ function startQuiz() {
   generateQuestion();
 }
 
-
+var highScore = function (event) {
+  event.preventDefault();
+  var name = nameEl.value.trim();
+  localStorage.setItem("name", name)
+  console.log(name)
+  // displayScores();
+}
 
 function startTimer() {
-  var timerCount = 61
   timer = setInterval(function() {
     timerCount--;
     timerEl.textContent = timerCount;
-    if (timerCount === 0) {
+    if (timerCount <= 0) {
       clearInterval(timer);
+      gameOver();
+      return(timerCount)
     }
   }, 1000);
 }
@@ -54,11 +66,12 @@ var nextQuestion = function (event) {
   if(event.target.className[8]){
     correct++
     resultEl.textContent = 'Correct!'
+    timerCount = timerCount + 10
   } else {
     incorrect++
     resultEl.textContent = 'Incorrect'
+    timerCount = timerCount - 10;
   }
-  
 
   switch (i) {
     case 0: answer1.classList.remove('right'); break;
@@ -67,12 +80,13 @@ var nextQuestion = function (event) {
     case 3: answer2.classList.remove('right'); break;
     default: answer4.classList.remove('right'); 
   }
+
   i++
 
   if (i<5) {
     generateQuestion()
   } else {
-    console.log('test over')
+    gameOver()
   }
 }
 
@@ -100,4 +114,17 @@ function generateQuestion() {
   var subbmit = document.querySelector(".questions")
   subbmit.addEventListener("click", nextQuestion)
 
+}
+
+function gameOver () {
+  question.remove();
+  resultEl.remove();
+  question.textContent = 'All Done!'
+  const displayResults = document.createElement('h4');
+  displayResults.textContent = 'Your score was: ' + timerCount + '!'
+  flagEl.appendChild(question);
+  flagEl.appendChild(displayResults);
+  scoreEl.style.visibility = 'visible'
+  
+  scoreEl.addEventListener('submit', highScore);
 }
