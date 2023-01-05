@@ -46,12 +46,24 @@ function startTimer() {
 }
 var nextQuestion = function (event) {
   event.preventDefault();
+  i++
 
   console.log(i)
-  generateQuestion()
+  if (i<5) {
+    generateQuestion()
+  } else {
+    console.log('test over')
+  }
 }
 
 function generateQuestion() {
+  switch (i) {
+    case 0: answer2.classList.add('right'); break;
+    case 1: answer3.classList.add('right'); break;
+    case 2: answer4.classList.add('right'); break;
+    case 3: answer2.classList.add('right'); break;
+    default: answer4.classList.add('right'); 
+  };
   question.textContent = questions[i];
   flagEl.appendChild(question);
   answer1.textContent = answers1[i];
@@ -62,10 +74,8 @@ function generateQuestion() {
   question.appendChild(answer3);
   answer4.textContent = answers4[i];
   question.appendChild(answer4);
-  i++
-  console.log(i, + "first")
 
-  var answerEl = document.querySelector('.answers');
+  var answerEl = document.querySelectorAll('.answers');
   answerEl.addEventListener("click", nextQuestion);
 }
 
