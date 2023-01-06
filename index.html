@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="./assets/css/style.css">
   </head>
   <body>
+
+    <!-- header for top of page includes bassic button and place to display timer -->
     <header>
         <button id="HighScore"> View high scores</button>
         <div class = "timer">
@@ -15,13 +17,19 @@
             <div class="timer-count">0</div>
         </div>
     </header>
+
+    <!-- flag to append things to -->
     <div class="flag">
+
+    <!-- home page information about quiz and button to start quiz -->
     <div class="home">
         <h1>Timed Quiz on basics of tennis scoring</h1>
         <h4>Try to answer as many of the tenis scoring related questions within the given time limit. Keep in mind that incorrect answers will penalize you by 10 seconds and correct answers will add 10 seconds. Good luck!!</h4>
         <button id="start-button">Beggin Quiz</button>
     </div>
   </div>
+
+  <!-- form to submit name -->
   <form id="score">
     <input name="name" id="name" type="text" autofocus="true" class="form-input" />
     <button type="submit" class="btn">submit</button>
