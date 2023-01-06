@@ -22,6 +22,9 @@ answer4.classList.add("answers",);
 const resultEl = document.createElement('div');
 resultEl.classList.add("result")
 
+const userName = document.createElement('h1');
+const userScore = document.createElement('h4');
+
 const questions = ['Q1: What is another term for zero when scoring tennis?', 'Q2: What is the fewest number of points needed to win a 12 point tie breaker?', 'Q3: What are the numbers used to keep track of the number of points a player has?', 'Q4: how manyy points does a player need to win by to win a game?', 'Q5: what is it called when tow players are even in points?'];
 
 const answers1 = ['Love', '13', '0, 1, 2, 3, 4', '1', 'tied'];
@@ -33,6 +36,7 @@ var i = 0;
 var correct = 0;
 var incorrect = 0;
 var timerCount = 60;
+var stop = false
 
 startButton.addEventListener("click", startQuiz);
 
@@ -44,20 +48,26 @@ function startQuiz() {
 
 var highScore = function (event) {
   event.preventDefault();
-  var name = nameEl.value.trim();
-  localStorage.setItem("name", name)
-  console.log(name)
-  // displayScores();
+  
+  var userNames = nameEl.value.trim()
+  var userScores = timerCount;
+  localStorage.setItem("userNames", userNames)
+  localStorage.setItem("userScores", userScores)
+
+  displayScores();
 }
 
 function startTimer() {
   timer = setInterval(function() {
     timerCount--;
     timerEl.textContent = timerCount;
+    if (stop) {
+      return(timerCount);
+    }
     if (timerCount <= 0) {
       clearInterval(timer);
       gameOver();
-      return(timerCount)
+      return(timerCount);
     }
   }, 1000);
 }
@@ -117,14 +127,28 @@ function generateQuestion() {
 }
 
 function gameOver () {
+  stop = true;
   question.remove();
   resultEl.remove();
   question.textContent = 'All Done!'
   const displayResults = document.createElement('h4');
   displayResults.textContent = 'Your score was: ' + timerCount + '!'
   flagEl.appendChild(question);
-  flagEl.appendChild(displayResults);
-  scoreEl.style.visibility = 'visible'
+  question.appendChild(displayResults);
+  scoreEl.style.visibility = 'visible';
+  timerEl.style.visibility = 'hidden';
   
   scoreEl.addEventListener('submit', highScore);
+}
+
+function displayScores () {
+  question.remove();
+  scoreEl.remove();
+  var usrnm = localStorage.getItem("userNames")
+  var usrsc = localStorage.getItem("userScores")
+  userName.textContent = usrnm;
+  userScore.textContent = usrsc;
+  flagEl.append(userName);
+  flagEl.append(userScore);
+
 }
